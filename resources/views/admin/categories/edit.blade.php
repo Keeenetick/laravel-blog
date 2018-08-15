@@ -8,30 +8,23 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../assets/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../assets/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/plugins/datatables/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="/assets/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/assets/plugins/iCheck/all.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="/assets/plugins/datepicker/datepicker3.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/assets/plugins/select2/select2.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-<style>
-  table.table form
-  {
-    display: inline-block;
-  }
-  button.delete{
-    background: transparent;
-    border: none;
-    color:#337ab7;
-    padding:0px;
-  }
-</style>
+  <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -77,7 +70,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -148,13 +141,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Alexander Pierce</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Alexander Pierce - Web Developer
@@ -205,7 +198,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Alexander Pierce</p>
@@ -257,14 +250,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Blank page
-        <small>it all starts here</small>
+        Добавить категорию
+        <small>приятные слова..</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -272,42 +260,26 @@
 
       <!-- Default box -->
       <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Листинг сущности</h3>
+        <div class="box-header with-border">
+          <h3 class="box-title">Меняем категорию</h3>
+        </div>
+        <div class="box-body">
+        {{Form::open(['route'=>['categories.update',$category->id],'method'=>'put'])}}
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Название</label>
+              <input type="text" name = "title" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$category->title}}">
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="form-group">
-                <a href="{{route('categories.create')}}" class="btn btn-success">Добавить</a>
-              </div>
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Название</th>
-                  <th>Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                  @foreach($categories as $category)
-                  <tr>
-                  <td>{{$category->id}}</td>
-                  <td>{{$category->title}}</td>
-                  <td><a href="{{route('categories.edit', $category->id)}}" class="fa fa-pencil"></a> 
-                  {{Form::open(['route'=>['categories.destroy', $category->id],'method'=>'delete'])}}
-                  <button onclick = "return confirm ('Вы уверены?')" type = "submit" class = "delete">
-                  <i class="fa fa-remove"></i>
-                  </button>
-                  </td>
-                  {{Form::close()}}
-                </tr>
-                  @endforeach
-               
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+        </div>
+      </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <button class="btn btn-default">Назад</button>
+          <button class="btn btn-warning pull-right">Изменить</button>
+        </div>
+        <!-- /.box-footer-->
+        {{Form::close()}}
+      </div>
       <!-- /.box -->
 
     </section>
@@ -521,26 +493,37 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="/assets/plugins/select2/select2.full.min.js"></script>
+<!-- bootstrapdatepicker -->
+<script src="/assets/plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- SlimScroll -->
-<script src="../assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="../assets/plugins/fastclick/fastclick.js"></script>
+<script src="/assets/plugins/fastclick/fastclick.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="/assets/plugins/iCheck/icheck.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../assets/dist/js/app.min.js"></script>
+<script src="/assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../assets/dist/js/demo.js"></script>
-<!-- page script -->
+<script src="/assets/dist/js/demo.js"></script>
 <script>
   $(function () {
-    $("#example1").DataTable();
+    //Initialize Select2 Elements
+    $(".select2").select2();
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
   });
 </script>
 </body>
-
 </html>

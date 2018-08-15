@@ -8,18 +8,26 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../assets/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../assets/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/assets/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/plugins/datatables/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="/assets/plugins/datatables/dataTables.bootstrap.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
 <style>
   table.table form
   {
@@ -32,13 +40,6 @@
     padding:0px;
   }
 </style>
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -77,7 +78,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -154,7 +155,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Alexander Pierce - Web Developer
@@ -205,7 +206,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Alexander Pierce</p>
@@ -278,7 +279,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="form-group">
-                <a href="{{route('categories.create')}}" class="btn btn-success">Добавить</a>
+                <a href="{{route('tags.create')}}" class="btn btn-success">Добавить</a>
               </div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -289,20 +290,29 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($categories as $category)
-                  <tr>
-                  <td>{{$category->id}}</td>
-                  <td>{{$category->title}}</td>
-                  <td><a href="{{route('categories.edit', $category->id)}}" class="fa fa-pencil"></a> 
-                  {{Form::open(['route'=>['categories.destroy', $category->id],'method'=>'delete'])}}
+                @foreach($tags as $tag)
+                <tr>
+                  <td>{{$tag->id}}</td>
+                  <td>{{$tag->title}}</td>
+                  
+                  <td><a href="{{route('tags.edit', $tag->id)}}" class="fa fa-pencil"></a>
+                  {{Form::open(['route'=>['tags.destroy', $tag->id],'method'=>'delete'])}}
                   <button onclick = "return confirm ('Вы уверены?')" type = "submit" class = "delete">
                   <i class="fa fa-remove"></i>
                   </button>
-                  </td>
+                 
                   {{Form::close()}}
+                @endforeach
+                </td>
+                
+                  
+                   <a href="#" class="fa fa-remove"></a></td>
                 </tr>
-                  @endforeach
-               
+                <tr>
+                  <td>2</td>
+                  <td>PHP</td>
+                  <td><a href="edit.html" class="fa fa-pencil"></a> <a href="#" class="fa fa-remove"></a></td>
+                </tr>
                 </tfoot>
               </table>
             </div>
@@ -521,20 +531,20 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
-<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="../assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="../assets/plugins/fastclick/fastclick.js"></script>
+<script src="/assets/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="../assets/dist/js/app.min.js"></script>
+<script src="/assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../assets/dist/js/demo.js"></script>
+<script src="/assets/dist/js/demo.js"></script>
 <!-- page script -->
 <script>
   $(function () {
