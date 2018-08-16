@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Carbon\Carbon;   //Пакет для работы с датой
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -9,13 +10,13 @@ class Post extends Model
     use Sluggable;
     const IS_DRAFT = 0;
     const IS_PUBLIC = 1;
-    protected $fillable = ['title' , 'content'];
+    protected $fillable = ['title' , 'content', 'date'];
     public function category(){
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function author(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function tags(){
@@ -45,20 +46,27 @@ class Post extends Model
     }
 
     public function edit($fields){
-        $post->fill($fields);
-        $post->save();
+        $this->fill($fields);
+        $this->save();
     }
 
     public function remove(){
-        Storage::delete('uploads/' . $this->image);
+       $this->removeImage();
         $this->delete();
     }
 
+    public function removeImage()
+    {
+        if($this->image != null){
+            Storage::delete('uploads/' . $this->image);
+        }
+    }
     public function uploadImage($image){
         if($image == null) {return;}
-        Storage::delete('uploads/' . $this->image);
+       $this->removeImage();
+      
         $filename = str_random(10). '.' . $image->extension();
-        $image->saveAs('uploads', $filename);
+        $image->storeAs('uploads', $filename);
         $this->image = $filename;
         $this->save();
     }
@@ -75,12 +83,12 @@ class Post extends Model
     }
 
     public function setDraft(){      //Черновик для поста
-        $this->staus = Post::IS_DRAFT;
+        $this->status = Post::IS_DRAFT;
         $this->save();
     }
 
     public function setPublic(){
-        $this->staus = Post::IS_PUBLIC;
+        $this->status = Post::IS_PUBLIC;
         $this->save();
     }
 
@@ -114,5 +122,31 @@ class Post extends Model
             return '/image/no-image.png';
         }
         return '/uploads/' . $this->image;
+    }
+
+    public function setDateAttribute($value)
+    {
+        $date = Carbon::createFromFormat('d/m/y',$value)->format('Y-m-d'); //Преобразование даты для корректного сохран. в бд
+        $this->attributes['date'] = $date;
+    }
+
+    public function getDateAttribute($value)
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
+        return $date;
+    }
+
+    public function getCategoryTitle()
+    {
+       return($this->category != null)
+            ? $this->category->title
+            : "Нет Категории";
+    }
+
+    public function getTagsTitles()
+    {
+        return (!$this->tags->isEmpty())
+       ? implode(', ', $this->tags->pluck('title')->all())
+        : "Нет тегов";
     }
 }
