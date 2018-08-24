@@ -56,7 +56,7 @@
                     <li><a href="contact.html">CONTACT</a></li>
                 </ul>
 
-               
+               <ul class="nav navbar-nav text-uppercase pull-right">
                     @if(Auth::check())
                     <li><a href="/profile">My profile</a></li>
                     <li><a href="/logout">Logout</a></li>
