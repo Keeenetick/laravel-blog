@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,23 +10,23 @@
     <title>Blog</title>
 
     <!-- common css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.css">
-    <link rel="stylesheet" href="assets/css/owl.transitions.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.css">
+    <link rel="stylesheet" href="../assets/css/owl.transitions.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 
     <!-- HTML5 shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.js"></script>
-    <script src="assets/js/respond.js"></script>
+    <script src="../assets/js/html5shiv.js"></script>
+    <script src="../assets/js/respond.js"></script>
     <![endif]-->
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 
 </head>
 
@@ -44,9 +44,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><img src="assets/images/logo.png" alt=""></a>
+                <a class="navbar-brand" href="/"><img src="../assets/images/logo.png" alt=""></a>
             </div>
-
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
@@ -57,8 +56,8 @@
                 </ul>
 
                 <ul class="nav navbar-nav text-uppercase pull-right">
-    
-                    @if(Auth::check())
+               
+                @if(Auth::check())
                     <li><a href="/profile">My profile</a></li>
                     <li><a href="/logout">Logout</a></li>
                     @else
@@ -83,54 +82,46 @@
     <!-- /.container-fluid -->
 </nav>
 
-
 <!--main content start-->
 <div class="main-content">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-        
-            @foreach($posts as $post)
-            <article class="post">
-                    <div class="post-thumb">
-                        <a href="{{route('post.show', $post->slug)}}"><img src="{{$post->getImage()}}" alt=""></a>
+                <div class="row">
+                @foreach ($posts as $post)
+                <div class="col-md-6">
+                        <article class="post post-grid">
+                            <div class="post-thumb">
+                                <a href="{{route('post.show', $post->slug)}}"><img src="{{$post->getImage()}}" alt=""></a>
 
-                        <a href="{{route('post.show', $post->slug)}}" class="post-thumb-overlay text-center">
-                            <div class="text-uppercase text-center">View Post</div>
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <header class="entry-header text-center text-uppercase">
-                            <h6><a href="#"> {{$post->getCategoryTitle()}}</a></h6>
-
-                            <h1 class="entry-title"><a href="{{route('post.show', $post->slug)}}">{{$post->title}}</a></h1>
-
-
-                        </header>
-                        <div class="entry-content">
-                            {!!$post->description!!}
-
-                            <div class="btn-continue-reading text-center text-uppercase">
-                                <a href="{{route('post.show', $post->slug)}}" class="more-link">Continue Reading</a>
+                                <a href="#" class="post-thumb-overlay text-center">
+                                    <div class="text-uppercase text-center">View Post</div>
+                                </a>
                             </div>
-                        </div>
-                        <div class="social-share">
-                            <span class="social-share-title pull-left text-capitalize">By <a href="#">Rubel</a> On {{$post->getDate()}}</span>
-                            <ul class="text-center pull-right">
-                                <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="s-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a class="s-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a class="s-instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </article>
-            @endforeach
-                
+                            <div class="post-content">
+                                <header class="entry-header text-center text-uppercase">
+                                    <h6><a href="{{route('category.show', $post->category->slug)}}"> {{$post->getCategoryTitle()}}</a></h6>
 
-               
-             {{$posts->links()}}
+                                    <h1 class="entry-title"><a href="{{route('post.show', $post->slug)}}">{{$post->title}}</a></h1>
+
+
+                                </header>
+                                <div class="entry-content">
+                                  {!!$post->description!!}
+
+                                    <div class="social-share">
+                                        <span class="social-share-title pull-left text-capitalize">By Rubel On {{$post->getDate()}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                @endforeach
+                    
+                  
+                </div>
+              {{$posts->links()}}
             </div>
             <div class="col-md-4" data-sticky_column>
                 <div class="primary-sidebar">
@@ -245,28 +236,28 @@
         <div id="footer-instagram" class="owl-carousel">
 
             <div class="item">
-                <a href="#"><img src="assets/images/ins-1.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-1.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-2.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-2.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-3.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-3.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-4.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-4.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-5.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-5.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-6.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-6.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-7.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-7.jpg" alt=""></a>
             </div>
             <div class="item">
-                <a href="#"><img src="assets/images/ins-8.jpg" alt=""></a>
+                <a href="#"><img src="../assets/images/ins-8.jpg" alt=""></a>
             </div>
 
         </div>
@@ -278,19 +269,19 @@
         <div class="row">
             <div class="col-md-4">
                 <aside class="footer-widget">
-                    <div class="about-img"><img src="assets/images/footer-logo.png" alt=""></div>
-                    <div class="about-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed voluptua. At vero eos et
-                        accusam et justo duo dlores et ea rebum magna text ar koto din.
+                    <div class="about-img"><img src="../assets/images/footer-logo.png" alt="Kotha"></div>
+                    <div class="about-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                        diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+                        voluptua. At vero eos et accusam et justo duo dlores et ea rebum magna text ar koto din.
                     </div>
                     <div class="address">
                         <h4 class="text-uppercase">contact Info</h4>
 
-                        <p> 142/5 BC Street, ES, VSA</p>
+                        <p> 239/2 NK Street, DC, USA</p>
 
                         <p> Phone: +123 456 78900</p>
 
-                        <p>rahim@marlindev.ru</p>
+                        <p>theme@kotha.com</p>
                     </div>
                 </aside>
             </div>
@@ -316,12 +307,12 @@
                                             magna aliquyam eratma</p>
                                     </div>
                                     <div class="author-id">
-                                        <img src="assets/images/author.png" alt="">
+                                        <img src="../assets/images/author.png" alt="">
 
                                         <div class="author-text">
                                             <h4>Sophia</h4>
 
-                                            <h4>Client, Tech</h4>
+                                            <h4>CEO, ReadyTheme</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -335,12 +326,12 @@
                                             magna aliquyam eratma</p>
                                     </div>
                                     <div class="author-id">
-                                        <img src="assets/images/author.png" alt="">
+                                        <img src="../assets/images/author.png" alt="">
 
                                         <div class="author-text">
                                             <h4>Sophia</h4>
 
-                                            <h4>Client, Tech</h4>
+                                            <h4>CEO, ReadyTheme</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -354,12 +345,12 @@
                                             magna aliquyam eratma</p>
                                     </div>
                                     <div class="author-id">
-                                        <img src="assets/images/author.png" alt="">
+                                        <img src="../assets/images/author.png" alt="">
 
                                         <div class="author-text">
                                             <h4>Sophia</h4>
 
-                                            <h4>Client, Tech</h4>
+                                            <h4>CEO, ReadyTheme</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -376,7 +367,7 @@
 
                     <div class="custom-post">
                         <div>
-                            <a href="#"><img src="assets/images/footer-img.png" alt=""></a>
+                            <a href="#"><img src="../assets/images/footer-img.png" alt=""></a>
                         </div>
                         <div>
                             <a href="#" class="text-uppercase">Home is peaceful Place</a>
@@ -399,12 +390,13 @@
         </div>
     </div>
 </footer>
+
 <!-- js files -->
-<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.stickit.min.js"></script>
-<script type="text/javascript" src="assets/js/menu.js"></script>
-<script type="text/javascript" src="assets/js/scripts.js"></script>
+<script type="text/javascript" src="../assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.stickit.min.js"></script>
+<script type="text/javascript" src="../assets/js/menu.js"></script>
+<script type="text/javascript" src="../assets/js/scripts.js"></script>
 </body>
 </html>

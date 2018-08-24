@@ -44,22 +44,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                <a class="navbar-brand" href="/"><img src="assets/images/logo.png" alt=""></a>
             </div>
 
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav text-uppercase">
-                    <li><a href="#">Homepage</a></li>
+                    <li><a href="/">Homepage</a></li>
                     <li><a href="about-me.html">ABOUT ME </a></li>
                     <li><a href="contact.html">CONTACT</a></li>
                 </ul>
 
-                <ul class="nav navbar-nav text-uppercase pull-right">
-                    <li><a href="#">Register</a></li>
-                    <li><a href="about-me.html">Login</a></li>
-                    <li><a href="contact.html">My profile</a></li>
+               
+                    @if(Auth::check())
+                    <li><a href="/profile">My profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    @else
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    @endif
                 </ul>
 
             </div>
@@ -86,59 +90,64 @@
             <div class="col-md-8">
 
                 <div class="leave-comment mr0"><!--leave comment-->
-                    
+                    @if(session('status'))
+                    <div class="alert alert-danger">
+                        {{session('status')}}
+                        </div>
+                    @endif
                     <h3 class="text-uppercase">Login</h3>
+                    @include('admin.errors')
                     <br>
-                    <form class="form-horizontal contact-form" role="form" method="post" action="">
+                    <form class="form-horizontal contact-form" role="form" method="post" action="/login">
+                        {{csrf_field()}}
                         <div class="form-group">
                             <div class="col-md-12">
                                 <input type="text" class="form-control" id="email" name="email"
-                                       placeholder="Email">
+                                       placeholder="Email" value = "{{old('email')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" id="password" name="password"
+                                <input type="password" class="form-control" id="password" name="password"
                                        placeholder="password">
                             </div>
                         </div>
-                        <button type="submit" name="submit" class="btn send-btn">Login</button>
+                        <button type="submit" class="btn send-btn">Login</button>
 
                     </form>
                 </div><!--end leave comment-->
             </div>
             <div class="col-md-4" data-sticky_column>
                 <div class="primary-sidebar">
+                    
+                    <aside class="widget news-letter">
+                        <h3 class="widget-title text-uppercase text-center">Get Newsletter</h3>
+
+                        <form action="#">
+                            <input type="email" placeholder="Your email address">
+                            <input type="submit" value="Subscribe Now"
+                                   class="text-uppercase text-center btn btn-subscribe">
+                        </form>
+
+                    </aside>
                     <aside class="widget">
                         <h3 class="widget-title text-uppercase text-center">Popular Posts</h3>
-
+                    @foreach($popularPosts as $post)
                         <div class="popular-post">
 
 
-                            <a href="#" class="popular-img"><img src="assets/images/p1.jpg" alt="">
+                            <a href="{{route('post.show', $post->slug)}}" class="popular-img"><img src="{{$post->getImage()}}" alt="">
 
                                 <div class="p-overlay"></div>
                             </a>
 
                             <div class="p-content">
-                                <a href="#" class="text-uppercase">Home is peaceful Place</a>
-                                <span class="p-date">February 15, 2016</span>
+                                <a href="{{route('post.show', $post->slug)}}" class="text-uppercase">{{$post->title}}</a>
+                                <span class="p-date">{{$post->getDate()}}</span>
 
                             </div>
                         </div>
-                        <div class="popular-post">
-
-                            <a href="#" class="popular-img"><img src="assets/images/p1.jpg" alt="">
-
-                                <div class="p-overlay"></div>
-                            </a>
-
-                            <div class="p-content">
-                                <a href="#" class="text-uppercase">Home is peaceful Place</a>
-                                <span class="p-date">February 15, 2016</span>
-                            </div>
-                        </div>
-                        <div class="popular-post">
+                      @endforeach
 
 
                             <a href="#" class="popular-img"><img src="assets/images/p1.jpg" alt="">
@@ -156,39 +165,19 @@
                         <h3 class="widget-title text-uppercase text-center">Featured Posts</h3>
 
                         <div id="widget-feature" class="owl-carousel">
+                            @foreach($featuredPosts as $post)
                             <div class="item">
                                 <div class="feature-content">
-                                    <img src="assets/images/p1.jpg" alt="">
+                                    <img src="{{$post->getImage()}}" alt="">
 
                                     <a href="#" class="overlay-text text-center">
-                                        <h5 class="text-uppercase">Home is peaceful</h5>
+                                        <h5 class="text-uppercase">{{$post->title}}</h5>
 
-                                        <p>Lorem ipsum dolor sit ametsetetur sadipscing elitr, sed </p>
+                                        <p>{!!$post->description!!} </p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="feature-content">
-                                    <img src="assets/images/p2.jpg" alt="">
-
-                                    <a href="#" class="overlay-text text-center">
-                                        <h5 class="text-uppercase">Home is peaceful</h5>
-
-                                        <p>Lorem ipsum dolor sit ametsetetur sadipscing elitr, sed </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="feature-content">
-                                    <img src="assets/images/p3.jpg" alt="">
-
-                                    <a href="#" class="overlay-text text-center">
-                                        <h5 class="text-uppercase">Home is peaceful</h5>
-
-                                        <p>Lorem ipsum dolor sit ametsetetur sadipscing elitr, sed </p>
-                                    </a>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </aside>
                     <aside class="widget pos-padding">
@@ -197,94 +186,34 @@
                         <div class="thumb-latest-posts">
 
 
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
-
-                                        <div class="p-overlay"></div>
-                                    </a>
-                                </div>
-                                <div class="p-content">
-                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
-                                    <span class="p-date">February 15, 2016</span>
-                                </div>
-                            </div>
                         </div>
+                        @foreach($recentPosts as $post)
                         <div class="thumb-latest-posts">
 
 
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
-
+                                    <a href="{{route('post.show',$post->slug)}}" class="popular-img"><img src="{{$post->getImage()}}" alt="">
                                         <div class="p-overlay"></div>
                                     </a>
                                 </div>
                                 <div class="p-content">
-                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
-                                    <span class="p-date">February 15, 2016</span>
+                                    <a href="{{route('post.show',$post->slug)}}" class="text-uppercase">{{$post->title}}</a>
+                                    <span class="p-date">{{$post->getDate()}}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="thumb-latest-posts">
-
-
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
-
-                                        <div class="p-overlay"></div>
-                                    </a>
-                                </div>
-                                <div class="p-content">
-                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
-                                    <span class="p-date">February 15, 2016</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="thumb-latest-posts">
-
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
-
-                                        <div class="p-overlay"></div>
-                                    </a>
-                                </div>
-                                <div class="p-content">
-                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
-                                    <span class="p-date">February 15, 2016</span>
-                                </div>
-                            </div>
-                        </div>
+                      @endforeach
                     </aside>
                     <aside class="widget border pos-padding">
                         <h3 class="widget-title text-uppercase text-center">Categories</h3>
                         <ul>
+                        @foreach($categories as $category)
                             <li>
-                                <a href="#">Food & Drinks</a>
-                                <span class="post-count pull-right"> (2)</span>
+                                <a href="{{route('category.show', $category->slug)}}">{{$category->title}}</a>
+                                <span class="post-count pull-right"> ({{$category->posts()->count()}})</span>
                             </li>
-                            <li>
-                                <a href="#">Travel</a>
-                                <span class="post-count pull-right"> (2)</span>
-                            </li>
-                            <li>
-                                <a href="#">Business</a>
-                                <span class="post-count pull-right"> (2)</span>
-                            </li>
-                            <li>
-                                <a href="#">Story</a>
-                                <span class="post-count pull-right"> (2)</span>
-                            </li>
-                            <li>
-                                <a href="#">DIY & Tips</a>
-                                <span class="post-count pull-right"> (2)</span>
-                            </li>
-                            <li>
-                                <a href="#">Lifestyle</a>
-                                <span class="post-count pull-right"> (2)</span>
-                            </li>
+                            @endforeach
                         </ul>
                     </aside>
                 </div>
