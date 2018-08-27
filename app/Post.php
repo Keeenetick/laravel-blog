@@ -19,6 +19,10 @@ class Post extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
     public function tags(){
         return $this->belongsToMany(
             Tag::class,
@@ -40,7 +44,7 @@ class Post extends Model
     public static function add($fields){
         $post = new static;
         $post->fill($fields);
-        $post->user_id = 1;
+        $post->user_id = Auth::user()->id;
         $post->save();
         return $post;
     }

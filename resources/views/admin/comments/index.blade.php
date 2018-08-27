@@ -8,22 +8,18 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../assets/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="/assets/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="/assets/plugins/iCheck/all.css">
-  <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="/assets/plugins/datepicker/datepicker3.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="/assets/plugins/select2/select2.min.css">
+  <link rel="stylesheet" href="../assets/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/plugins/datatables/dataTables.bootstrap.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,7 +27,21 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+  
 </head>
+<style>
+  table.table form
+  {
+    display: inline-block;
+  }
+  button.delete{
+    background: transparent;
+    border: none;
+    color:#337ab7;
+    padding:0px;
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -70,7 +80,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -141,13 +151,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Alexander Pierce</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Alexander Pierce - Web Developer
@@ -198,7 +208,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Alexander Pierce</p>
@@ -224,7 +234,7 @@
             <i class="fa fa-dashboard"></i> <span>Админ-панель</span>
           </a>
         </li>
-        <li><a href=""><i class="fa fa-sticky-note-o"></i> <span>Посты</span></a></li>
+        <li><a href="{{route('posts.index')}}"><i class="fa fa-sticky-note-o"></i> <span>Посты</span></a></li>
         <li><a href="{{route('categories.index')}}"><i class="fa fa-list-ul"></i> <span>Категории</span></a></li>
         <li><a href="{{route('tags.index')}}"><i class="fa fa-tags"></i> <span>Теги</span></a></li>
         <li>
@@ -235,7 +245,7 @@
             </span>
           </a>
         </li>
-        <li><a href="{{route('users.index')}}"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
+        <li><a href="#"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
         <li><a href="#"><i class="fa fa-user-plus"></i> <span>Подписчики</span></a></li>
       
       </ul>
@@ -250,106 +260,63 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Изменить статью
-        <small>приятные слова..</small>
+        Blank page
+        <small>it all starts here</small>
       </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Blank page</li>
+      </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-{{Form::open([
-'route'=>['posts.update',$post->id],
-'files'=>true,
-'method'=> 'put'
-])}}
+
       <!-- Default box -->
       <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Обновляем статью</h3>
-        </div>
-        <div class="box-body">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Название</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$post->title}}" name = "title">
+            <div class="box-header">
+              <h3 class="box-title">Листинг сущности</h3>
             </div>
-            
-            <div class="form-group">
-              <img src="{{$post->getImage()}}" alt="" class="img-responsive" width="200">
-              <label for="exampleInputFile">Лицевая картинка</label>
-              <input type="file" id="exampleInputFile" name = "image">
-
-              <p class="help-block">Какое-нибудь уведомление о форматах..</p>
-            </div>
-            <div class="form-group">
-              <label>Категория</label>
-              {{Form::select('category_id', 
-              $categories, 
-              $post->getCategoryID(), 
-              ['class' => 'form-control select2'])}}
-            </div>
-            <div class="form-group">
-              <label>Теги</label>
-              {{Form::select('tags[]', 
-             $tags,
-              $post->tags->pluck('id')->all(), 
-              ['class' => 'form-control select2','multiple' =>'multiple','data-placeholder'=>'Выберите теги'])}}
-            </div>
-            <!-- Date -->
-            <div class="form-group">
-              <label>Дата:</label>
-
-              <div class="input-group date">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="datepicker" value="{{$post->date}}" name = "date">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="form-group">
+                <a href="create.html" class="btn btn-success">Добавить</a>
               </div>
-              <!-- /.input group -->
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Текст</th>
+                  <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($comments as $comment)
+                <tr>
+                  <td>{{$comment->id}}</td>
+                  <td>{{$comment->text}}
+                  </td>
+                  <td> 
+                  @if($comment->status == 1)
+                  <a href="/admin/comments/toggle/{{$comment->id}}" class="fa fa-lock"></a>
+                  @else
+                  <a href="/admin/comments/toggle/{{$comment->id}}" class="fa fa-thumbs-o-up"></a>
+                  @endif
+                  {{Form::open(['route'=>['comments.destroy', $comment->id],'method'=>'delete'])}}
+                  <button onclick = "return confirm ('Вы уверены?')" type = "submit" class = "delete">
+                  <i class="fa fa-remove"></i>
+                  </button>
+                 
+                  {{Form::close()}}
+                 
+                </tr>
+               @endforeach
+                </tfoot>
+              </table>
             </div>
-
-            <!-- checkbox -->
-            <div class="form-group">
-              <label>
-              {{Form::checkbox('is_featured', '1', $post->is_featured, ['class'=>'minimal'])}}
-                
-              </label>
-              <label>
-                Рекомендовать
-              </label>
-            </div>
-            <!-- checkbox -->
-            <div class="form-group">
-              <label>
-              {{Form::checkbox('status', '1', $post->status, ['class'=>'minimal'])}}
-              </label>
-              <label>
-                Черновик
-              </label>
-            </div>
+            <!-- /.box-body -->
           </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Описание</label>
-              <textarea name="description" id="" cols="30" rows="10" class="form-control">{{$post->description}}</textarea>
-          </div>
-
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Полный текст</label>
-              <textarea name="content" id="" cols="30" rows="10" class="form-control">
-              {{$post->content}}
-              </textarea>
-          </div>
-        </div>
-      </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          
-          <button class="btn btn-warning pull-right">Изменить</button>
-        </div>
-        <!-- /.box-footer-->
-      </div>
       <!-- /.box -->
 
     </section>
@@ -563,49 +530,26 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="/assets/plugins/select2/select2.full.min.js"></script>
-<!-- bootstrap datepicker -->
-<script src="/assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="/assets/plugins/fastclick/fastclick.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="/assets/plugins/iCheck/icheck.min.js"></script>
+<script src="../assets/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="/assets/dist/js/app.min.js"></script>
+<script src="../assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="/assets/dist/js/demo.js"></script>
-<script src = "/plugins/ckfinder/ckfinder.js"></script>
-<script src = "/plugins/ckeditor/ckeditor.js"></script>
-<script>
-$(document).ready(function(){
-  var editor = CKEDITOR.replaceAll();
-  CKFinder.setupCKEditor(editor);
-})
-</script>
+<script src="../assets/dist/js/demo.js"></script>
+<!-- page script -->
 <script>
   $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true,
-      format: 'dd/mm/yy'
-    });
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
+    $("#example1").DataTable();
   });
 </script>
-
 </body>
 
-<!-- Mirrored from almsaeedstudio.com/themes/AdminLTE/pages/examples/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Dec 2016 15:13:35 GMT -->
 </html>
