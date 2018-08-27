@@ -2,6 +2,7 @@
 
 namespace App;
 use Carbon\Carbon;   //Пакет для работы с датой
+use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
